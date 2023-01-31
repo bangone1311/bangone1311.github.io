@@ -1,0 +1,52 @@
+---
+---
+{%- assign en = site.data.strings.en -%}
+{
+  {%- comment %} Increase the version number  X.Y like this: Smaller number Y if you add features, bigger number X when you remove features. {% endcomment %}
+  "version" : "2.1",
+  "images": [
+    {%- assign images = site.static_files | where_exp: "file", "file.path contains '/images/'" -%}
+    {%- assign thumbs = site.static_files | where_exp: "file", "file.path contains '/thumbs/'" -%}
+    {%- for image in images %}
+      {
+      {%- assign imageId = image.path | split: "/" | shift: 2 | join: "/" %}
+      {%- assign license = site.data.licenses.default %}
+      {%- for license2 in site.data.licenses %}
+        {%- if imageId contains license2[0] %}
+          {%- assign license = license2[1] %}
+        {%- endif %}
+      {%- endfor %}
+        "license": {
+          {%- for language in site.data.strings %}
+            {{ language[0] | jsonify }} : {
+              "url" : {{ language[1][license.url] | default: en[license.url] | default: license.url | jsonify }},
+              "text" : {{ language[1][license.text] | default: en[license.text] | default: license.text | jsonify }},
+              "source-url" : {{ language[1][license["source-url"]] | default: en[license["source-url"]] | default: license["source-url"] | jsonify }},
+              "creator" : {{ language[1][license.creator] | default: en[license.creator] | default: license.creator | jsonify }}
+            }
+          {%- endfor %}
+        },
+        "id" : {{ imageId | jsonify }},
+        "path" : {{ image.path | jsonify }},
+        "last-modified" : {{ image.modified_time | date_to_xmlschema | jsonify }},
+        "thumbnails" : [
+              {% assign hasComma = false %}    
+          {%- for thumb in thumbs %}
+            {%- if thumb.path contains imageId %}
+              {%- if hasComma %}, { {%- else -%} { {%- endif %}
+              {%- assign hasComma = true %}
+              {%- assign maxWidth = thumb.path | split: "/" | shift: 2 | first %}
+                "path" : {{ thumb.path | jsonify}},
+                "id": {{ thumb.path | split: "/" | shift: 2 | join: "/" | jsonify }},
+                "max-width" : {{ maxWidth }},
+                "last-modified" : {{ thumb.modified_time | date_to_xmlschema | jsonify }}
+              }
+            {%- endif %}
+          {%- endfor %}
+        ]
+      }
+      {%- unless forloop.last %}, {% endunless %}
+    {%- endfor -%}
+  ]
+}
+

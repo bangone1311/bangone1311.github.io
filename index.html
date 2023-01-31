@@ -1,0 +1,61 @@
+---
+---
+{%- assign language = site.data.strings.en -%}
+{%- assign en = site.data.strings.en -%}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ language.description | default: en.description | escape }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>{{ language.title | default: en.title }}</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="icon" type="image/svg+xml" href="https://github.com/niccokunzmann/coloring-book/raw/master/images/logo.svg" />
+  </head>
+  <body>
+    <header>
+      <h1>{{ language.title | default: en.title }}</h1>
+    </header>
+    <main>
+    <div class="description">
+      {{ language.description | default: en.description }}
+    </div>
+    <div class="images">
+    {%- assign images = site.static_files | where_exp: "file", "file.path contains '/images/'" -%}
+    {%- for image in images %}
+      <div class="image">
+        <a href="{{ image.path }}" class="applink"><img src="{{ image.path }}" /></a>
+        {%- assign imageId = image.path | split: "/" | shift: 2 | join: "/" %}
+        {%- assign splitPath = image.path | split: "/" -%}
+        {%- assign license = site.data.licenses.default %}
+        {%- for license2 in site.data.licenses %}
+          {%- if imageId contains license2[0] %}
+            {%- assign license = license2[1] %}
+          {%- endif %}
+        {%- endfor %}
+        <div class="license">
+          <a href="{{ license['source-url'] | default: '' }}">
+            {%- if license['source-url'] -%}
+              {{ license.creator | default: language["image-source"] | default: en["image-source"] }}
+            {%- else -%}
+              {{ license.creator | default: "" }}
+            {%- endif -%}
+          </a> | 
+          <a href="{{ language[license.url] | default: en[license.url] | default: license.url | default: '' }}" >
+             {{ language[license.text] | default: en[license.text] | default: license.text | default: language["view-license"] | default: en["view-license"] | escape }}
+          </a>
+        </div>
+      </div>
+    {%- endfor -%}
+    </div>
+    </main>
+    <footer>
+      <div class="text">
+        {{ language.footerText | default: en.footerText }}
+        |
+        <a href="https://github.com/niccokunzmann/coloring-book-gallery">{{ language.sourceCode | default: en.sourceCode }}</a>
+      </div>
+    </footer>
+  </body>
+</html>
+

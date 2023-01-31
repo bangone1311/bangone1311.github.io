@@ -1,0 +1,67 @@
+
+.image img {
+  max-height: 20em;
+  max-width: 100%;
+  background-color: white;
+  border-radius: 1em;
+}
+
+.license {
+  display: block;
+  font-size: 50%;
+  color: gray;
+}
+
+.image {
+  padding: 0.5em;
+  padding-top: 1em;
+  background-color: #dddddd;
+  border-bottom-color: #aaaaaa;
+  border-bottom-style: solid;
+  border-bottom-width: 0.3em;
+  border-radius: 1em;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+main, footer .text {
+  padding: 0.2em;
+  max-width: 40em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header h1 {
+  text-align: center;
+  padding-right: 1em;
+  padding-left: 1em;
+
+}
+
+header {
+  padding: 0.5em;
+  width: 100%;
+  background-color: #dddddd;
+  border-bottom-color: #aaaaaa;
+  border-bottom-style: solid;
+  border-bottom-width: 0.3em;
+}
+
+body {
+  padding: 0em;
+  margin: 0em;
+}
+
+.description {
+  padding: 0.5em;
+}
+
+footer {
+  padding: 0.5em;
+  width: 100%;
+  background-color: #dddddd;
+  border-top-color: #aaaaaa;
+  border-top-style: solid;
+  border-top-width: 0.3em;
+}
+
