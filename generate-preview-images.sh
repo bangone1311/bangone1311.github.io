@@ -41,8 +41,8 @@ find images -iname '*.png' | while read -r image; do
   #exit
   #width="${widthHeight[0]}"
   #height="${widthHeight[1]}"
-  width = echo $resolution | cut -d "x" -f 1
-  height = echo $resolution | cut -d "x" -f 2
+  width = "$resolution" | cut -d "x" -f 1
+  height = "$resolution" | cut -d "x" -f 2
   echo "converting $image"
   printedMessage1="false"
 #  printedMessageNewer="false"
