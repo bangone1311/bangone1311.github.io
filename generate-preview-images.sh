@@ -36,6 +36,7 @@ convert --version
 
 find images -iname '*.png' | while read -r image; do
   resolution="`identify \"$image\" | grep -oE '[0-9]+x[0-9]+' | head -n1`"
+  echo resolution
   widthHeight=${resolution//x/ } # from https://stackoverflow.com/a/5257398/1320237
   width="${widthHeight[0]}"
   height="${widthHeight[1]}"
