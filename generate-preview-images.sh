@@ -20,7 +20,7 @@
 # Configuration of the preview images:
 # 
 # The width of the preview images
-thumbnailMaximumWidth=(100 150 200 300)
+thumbnailMaximumWidth=(100,150,200,300)
 # The height multiplied with the width, so the images do not get too big
 maxHeightMultiplier=2
 
