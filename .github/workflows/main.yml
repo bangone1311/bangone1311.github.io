@@ -9,7 +9,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run script file
-      run: |
-         sh generate-preview-images.sh
-      runs-on: ubuntu-latest
+      run: sh generate-preview-images.sh
       shell: bash
