@@ -20,7 +20,8 @@
 # Configuration of the preview images:
 # 
 # The width of the preview images
-thumbnailMaximumWidth=[100,150,200,300]
+#declare -a thumbnailMaximumWidth=(100 150 200 300)
+#thumbnailMaximumWidth=[100,150,200,300]
 # The height multiplied with the width, so the images do not get too big
 maxHeightMultiplier=2
 
@@ -41,12 +42,19 @@ find images -iname '*.png' | while read -r image; do
   #exit
   #width="${widthHeight[0]}"
   #height="${widthHeight[1]}"
-  width = "$resolution" | cut -d "x" -f 1
-  height = "$resolution" | cut -d "x" -f 2
+  #echo "$resolution" | cut -d "x" -f 1
+  #a="foo:bar"
+  width=${resolution%x*}
+  height=${resolution##*x}     
+  #width =  "$resolution" | cut -d "x" -f 1
+  #height = $(($resolution | cut -d "x" -f 2))
   echo "converting $image"
+  echo $width
   printedMessage1="false"
 #  printedMessageNewer="false"
-  for maxWidth in ${thumbnailMaximumWidth[*]}; do
+  echo $thumbnailMaximumWidth
+  for maxWidth in 100 150 200 300 ;
+  do
     maxHeight="$(( $maxWidth * $maxHeightMultiplier ))"
     newHeight="$(( $height * $maxWidth / $width ))"
     if [ "$newHeight" -ge "$maxHeight" ]; then
